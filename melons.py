@@ -15,8 +15,17 @@ class AbstractMelonOrder(object):
         """Calculate price."""
 
         base_price = 5
+        
+        if self.species.lower() == "christmas":
+            base_price *= 3
+        
         total = (1 + self.tax) * self.qty * base_price
+
+        #if subclass is InternationalMelon:
+        # and order is under
+
         return total
+
 
     def mark_shipped(self):
         """Set shipped to true."""
