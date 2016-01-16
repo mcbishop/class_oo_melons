@@ -13,10 +13,13 @@ class AbstractMelonOrder(object):
         self.shipped = False       
         self.order_type = order_type
         self.tax = tax
+        self.surge_price = False
+        self.surge_cost = randint(6,10)
 
     def get_base_price(self):
         """Splurge pricing uses a random number between 5 and 9."""
-        self.base_price = randint(5,9)
+        if self.surge_price == True:
+            self.base_price = self.surge_cost
         return self.base_price
 
     def get_total(self,get_base_price):
@@ -34,6 +37,10 @@ class AbstractMelonOrder(object):
         total = ((1 + self.tax) * self.qty * base_price) + intl_fee
 
         return total
+
+    def mark_surge_price(self):
+        """Set surge price to true."""
+        self.surge_price = True
 
 
     def mark_shipped(self):
